@@ -125,8 +125,8 @@ else
     PINNED="$(grep -E '^\| `vite` \|' "$VERFILE" | head -1 | awk -F'|' '{ gsub(/ /, "", $3); print $3 }')"
   fi
 
-  if [ "$ENGINE_LC" = web ] && printf '%s' "$INSTALLED_ROW" | grep -qE '^PER PROJECT'; then
-    skipped "pinned-vs-installed at pin time — $VERFILE pins the template, and each web project installs its own versions; the installed-bundler check below reads them"
+  if { [ "$ENGINE_LC" = web ] || [ "$ENGINE_LC" = roblox ]; } && printf '%s' "$INSTALLED_ROW" | grep -qE '^PER PROJECT'; then
+    skipped "pinned-vs-installed at pin time — $VERFILE pins the template, and each project installs its own versions; the installed-version check below reads them"
   elif [ -z "$INSTALLED_ROW" ]; then
     differs "$VERFILE has no 'Installed at pin time' row. /setup-engine is required to write one; its absence means the probe result was never recorded, not that the versions agree."
   elif printf '%s' "$INSTALLED_ROW" | grep -qE 'NOT DETERMINED'; then
@@ -244,6 +244,14 @@ case "$ENGINE_LC" in
       [ -n "$WV" ] && PROBE="$WV (node_modules/$WEB_BPKG/package.json)"
     fi
     ;;
+  roblox)
+    # Studio updates itself and has no version to pin; engine.version is Rojo's,
+    # the tool rokit.toml pins and the build runs.
+    if command -v rojo >/dev/null 2>&1; then
+      RV="$(rojo --version 2>/dev/null | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)"
+      [ -n "$RV" ] && PROBE="$RV (rojo --version)"
+    fi
+    ;;
 esac
 
 if [ -z "$PROBE" ]; then
@@ -257,6 +265,8 @@ if [ -z "$PROBE" ]; then
     else
       skipped "declared version vs installed bundler — no node_modules/$WEB_BPKG/package.json (the dependencies are not installed). A probe that could not run has not established absence."
     fi
+  elif [ "$ENGINE_LC" = "roblox" ]; then
+    skipped "declared version vs installed Rojo — no rojo on PATH (rokit install puts it there). A probe that could not run has not established absence."
   elif [ "$ENGINE_LC" = "unreal" ]; then
     skipped "declared version vs installed engine — no readable Engine/Build/Build.version under engine.path, the editor in commands.test, the launcher folder for the .uproject's EngineAssociation, or UnrealEditor-Cmd on PATH. A probe that could not run has not established absence."
   else

@@ -13,7 +13,7 @@
 - If BEYOND training data (MEDIUM or HIGH RISK):
 
 **Web:** the reference ships complete; compare it with the scaffold and write
-nothing (`references/web.md`, W4).
+nothing (`references/web.md`, W4). **Roblox:** the same (`references/roblox.md`, R4).
 
 ### First: does a reference set already exist for this engine?
 

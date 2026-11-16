@@ -1018,6 +1018,15 @@ agents:
     last_category_result: ""
     category: specialist
 
+  # Engine Specialists — Roblox
+  - name: roblox-specialist
+    spec: studio-tests/agents/engine/roblox/roblox-specialist.md
+    last_spec: ""
+    last_spec_result: ""
+    last_category: ""
+    last_category_result: ""
+    category: engine
+
   # Engine Specialists — Godot
   - name: godot-specialist
     spec: studio-tests/agents/engine/godot/godot-specialist.md

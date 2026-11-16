@@ -1,6 +1,6 @@
 ---
 name: setup-engine
-description: "Sets up and pins the engine version: web for a new project unless Godot, Unity or Unreal is named. Use to choose or upgrade it."
+description: "Sets up and pins the engine version: web for a new project unless Godot, Unity, Unreal or Roblox is named. Use to choose or upgrade it."
 argument-hint: "[engine] | [engine version] | refresh | upgrade [old-version] [new-version] | no args for guided selection"
 user-invocable: true
 allowed-tools: Read, Glob, Grep, Write, Edit, WebSearch, WebFetch, Agent, AskUserQuestion, Bash(bash "*/.claude/skills/setup-engine/../../hooks/yaml-helper.sh" resolve_config *), Bash(godot --version), Bash(godot --headless --path . --import), Bash(command -v godot), Bash(uname -s), Bash(bash .claude/scripts/project-coherence.sh*), Bash(node --version), Bash(npm ci*), Bash(npm run build*), Bash(bash .claude/scripts/web-scaffold.sh*), Bash(bash .claude/scripts/web-detect.sh*), Bash(pnpm install --frozen-lockfile*), Bash(yarn install --frozen-lockfile*), Bash(yarn install --immutable*), Bash(bun install --frozen-lockfile*), Bash(pnpm run build*), Bash(yarn run build*), Bash(bun run build*), Bash(bash .claude/scripts/test-run.sh web*), Bash(bash .claude/scripts/page-shot.sh *)
@@ -37,6 +37,11 @@ Modes:
   versions the web scaffold pins, or an existing web project (a `package.json`),
   recorded as it is. **Read `references/web.md` now and follow it**:
   it replaces Sections 3, 6, 7 and 7.5 for Web and gives the values Sections 4, 5
+  and 5.5 write
+- **Roblox**: `/setup-engine roblox` — Roblox Studio with Luau, its code in files
+  synced by Rojo, the toolchain pinned in `rokit.toml`, and Studio's built-in MCP
+  server for playtests. **Read `references/roblox.md` now and follow it**: it
+  replaces Sections 3, 6, 7 and 7.5 for Roblox and gives the values Sections 4, 5
   and 5.5 write
 - **No args**: `/setup-engine` — guided mode: an existing project keeps its engine;
   a new one is offered web first (Section 2)
@@ -84,7 +89,8 @@ Modes:
 ## 9. Update Agent Instructions
 
 On Web there is no engine specialist agent: skip this section and say so
-(`references/web.md`, W7).
+(`references/web.md`, W7). On Roblox, `roblox-specialist` already has the section
+(`references/roblox.md`, R8).
 
 Ask: "May I add a Version Awareness section to the engine specialist agent files?" before making any edits.
 

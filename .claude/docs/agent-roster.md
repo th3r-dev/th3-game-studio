@@ -63,6 +63,7 @@ session's model.
 | ---- | ---- | ---- |
 | `unreal-specialist` | Unreal Engine 5 | Blueprint vs C++, GAS overview, UE subsystems, Unreal optimization |
 | `unity-specialist` | Unity | MonoBehaviour vs DOTS, Addressables, URP/HDRP, Unity optimization |
+| `roblox-specialist` | Roblox | Client/server split, remote trust, DataStores, Rojo layout, Studio MCP playtests |
 | `godot-specialist` | Godot 4 | GDScript patterns, node/scene architecture, signals, Godot optimization |
 
 ### Unreal Engine Sub-Specialists

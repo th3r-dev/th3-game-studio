@@ -1,19 +1,37 @@
-<p align="center">
-  <h1 align="center">Claude Code Game Studios</h1>
-  <p align="center">
-    Describe a game. Claude Code asks a few questions, writes a one-page brief,
-    and builds a playable browser game from it.
-    <br />
-    Then you change it, grow it and finish it, one step at a time.
-  </p>
+<div align="center">
+
+<h1>th3 Game Studio</h1>
+
+<p>
+  Describe a game. Claude Code asks a few questions, writes a one-page brief,
+  and builds a playable browser game from it.<br>
+  Then you change it, grow it and finish it, one step at a time.<br>
+  This fork adds <b>Roblox Studio</b> as an engine.
 </p>
 
-<p align="center">
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License"></a>
-  <a href="https://code.claude.com/docs"><img src="https://img.shields.io/badge/built%20for-Claude%20Code-f5f5f5?logo=anthropic" alt="Built for Claude Code"></a>
-  <a href="https://www.buymeacoffee.com/donchitos3"><img src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-Support%20this%20project-FFDD00?logo=buymeacoffee&logoColor=black" alt="Buy Me a Coffee"></a>
-  <a href="https://github.com/sponsors/Donchitos"><img src="https://img.shields.io/badge/GitHub%20Sponsors-Support%20this%20project-ea4aaa?logo=githubsponsors&logoColor=white" alt="GitHub Sponsors"></a>
+<p>
+  <a href="#getting-started"><img src="https://img.shields.io/badge/Get%20started-238636?style=for-the-badge&logo=github&logoColor=white" alt="Get started" height="32"></a>
+  <a href="https://github.com/sponsors/th3r-dev"><img src="https://img.shields.io/badge/Sponsor-ea4aaa?style=for-the-badge&logo=githubsponsors&logoColor=white" alt="Sponsor th3r-dev" height="32"></a>
+  <a href="#roblox-route"><img src="https://img.shields.io/badge/Roblox%20route-000000?style=for-the-badge&logo=roblox&logoColor=white" alt="Roblox route" height="32"></a>
 </p>
+
+<p>
+  <a href="https://github.com/th3r-dev"><img src="https://img.shields.io/badge/th3r--dev-181717?logo=github&logoColor=white" alt="GitHub: th3r-dev"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT License"></a>
+  <a href="https://github.com/Donchitos/Claude-Code-Game-Studios"><img src="https://img.shields.io/badge/fork%20of-Claude%20Code%20Game%20Studios-555?logo=git&logoColor=white" alt="Fork of Claude Code Game Studios"></a>
+  <a href="https://code.claude.com/docs"><img src="https://img.shields.io/badge/Claude%20Code-f5f5f5?logo=anthropic&logoColor=black" alt="Claude Code"></a>
+  <a href="#roblox-route"><img src="https://img.shields.io/badge/Codex%20%C2%B7%20Cursor%20%C2%B7%20Gemini-via%20Studio%20MCP-6e40c9?logo=modelcontextprotocol&logoColor=white" alt="Other agents via Studio MCP"></a>
+</p>
+
+<sub>
+  <a href="#getting-started">🚀 Get started</a> ·
+  <a href="#engines">🧩 Engines</a> ·
+  <a href="https://github.com/th3r-dev/th3-game-studio/issues/new/choose">🐞 Report a bug</a> ·
+  <a href="https://github.com/th3r-dev/th3-game-studio/discussions">💬 Discuss</a> ·
+  <a href="#credits">🙏 Credits</a>
+</sub>
+
+</div>
 
 ---
 
@@ -96,7 +114,9 @@ clutter, not evidence.
 - [Customization](#customization)
 - [Platform Support](#platform-support)
 - [Community](#community)
+- [Roblox route](#roblox-route)
 - [Supporting This Project](#supporting-this-project)
+- [Credits](#credits)
 - [License](#license)
 
 ---
@@ -118,7 +138,7 @@ Hooks fail gracefully if optional tools are missing — you just lose validation
 
 1. **Clone or use as template**:
    ```bash
-   git clone https://github.com/Donchitos/Claude-Code-Game-Studios.git my-game
+   git clone https://github.com/th3r-dev/th3-game-studio.git my-game
    cd my-game
    ```
 
@@ -138,16 +158,16 @@ Hooks fail gracefully if optional tools are missing — you just lose validation
    - `/next-step` — names the one next step wherever you are
    - `/brainstorm` — explore game ideas from scratch
    - `/setup-engine godot 4.7` — configure an engine if you already know you want one
+   - `/setup-engine roblox` — set up a Roblox Studio game ([Roblox route](#roblox-route))
    - `/project-stage-detect` — analyze an existing project
 
 ## Engines
 
-| Engine | `engine.name` | Code root | Notes |
-|--------|---------------|-----------|-------|
-| **Web** | `Web` | `src/` | The default for a new project. A one-shot needs no engine at all; a grown game is a web project. `/setup-engine web` offers a starter: nothing extra, three.js, Phaser or PixiJS |
-| **Godot 4** | `Godot` | `src/` | GDScript, C# or GDExtension |
-| **Unity** | `Unity` | `Assets/` | Unity compiles only `Assets/` and `Packages/` |
-| **Unreal Engine 5** | `Unreal` | `Source/<Module>/` | C++ and Blueprints |
+- 🌐 **Web**: `engine.name: Web`, code in `src/`. The default for a new project. A one-shot needs no engine at all; a grown game is a web project. `/setup-engine web` offers a starter: nothing extra, three.js, Phaser or PixiJS
+- 🤖 **Godot 4**: `engine.name: Godot`, code in `src/`. GDScript, C# or GDExtension
+- 🎲 **Unity**: `engine.name: Unity`, code in `Assets/`. Unity compiles only `Assets/` and `Packages/`
+- 🏛️ **Unreal Engine 5**: `engine.name: Unreal`, code in `Source/<Module>/`. C++ and Blueprints
+- 🧱 **Roblox**: `engine.name: Roblox`, code in `src/`. Luau, synced into Studio by Rojo; playtests through Studio MCP. [Roblox route](#roblox-route)
 
 `/setup-engine` pins the engine version and writes its reference docs
 (`docs/engine-reference/<engine>/`). With no engine set, `/prototype` builds
@@ -218,7 +238,7 @@ CLAUDE.md                           # Master configuration
 project.yaml                        # Project settings: engine, modes, goal
 .claude/
   settings.json                     # Hooks, permissions, safety rules
-  agents/                           # 49 agent definitions (markdown + YAML frontmatter)
+  agents/                           # 50 agent definitions (markdown + YAML frontmatter)
   skills/                           # 75 skills, plus three old names (a subdirectory each)
   hooks/                            # 18 scripts (bash) — 15 event hooks, two helpers they
                                     #   source (yaml-helper.sh, update-check.sh), and one
@@ -227,7 +247,8 @@ project.yaml                        # Project settings: engine, modes, goal
   rules/                            # 14 path-scoped coding standards
   genres/                           # Genre sheets and look guidance /prototype asks and
                                     #   builds from
-  engines/                          # The engine table (engines.tsv) and the web starter
+  engines/                          # The engine table (engines.tsv), the web starter and the
+                                    #   Roblox (Rojo) scaffold
   statusline.sh                     # Status line script (context%, model, stage, epic breadcrumb)
   docs/
     workflow-catalog.yaml           # 7-phase pipeline definition (read by /next-step)
@@ -250,7 +271,7 @@ studio-tests/                       # QA for the skills and agents themselves �
 
 Claude Code Game Studios is a template you are meant to edit. `studio-tests/` is how
 you check that an edited or newly written skill still holds up — a catalog of all
-75 skills and 49 agents, per-category quality rubrics, behavioral specs, and
+75 skills and 50 agents, per-category quality rubrics, behavioral specs, and
 templates for writing specs of your own.
 
 ```
@@ -317,7 +338,7 @@ C# under `Assets/Tests/` and C++ under `Source/**/Tests/`.
 
 Everything above is the light path: one brief, a game you play, one feature a
 sitting as it grows. For a team, a long project, or a person who wants the paperwork, the
-same project also has **studio mode**: 49 specialized agents in a studio
+same project also has **studio mode**: 50 specialized agents in a studio
 hierarchy, a design document per system, architecture decisions, epics and
 sprints, phase gates, and `team-*` pipelines that coordinate several agents on
 one feature. `/next-step` suggests it once when a grown game gets big (about
@@ -327,7 +348,7 @@ nine stories or features).
 
 | Category | Count | Description |
 |----------|-------|-------------|
-| **Agents** | 49 | Specialized subagents across design, programming, art, audio, narrative, QA, and production |
+| **Agents** | 50 | Specialized subagents across design, programming, art, audio, narrative, QA, and production |
 | **Skills** | 75 | Slash commands for every workflow phase (`/prototype`, `/start`, `/design-system`, `/create-epics`, `/create-stories`, `/dev-story`, `/story-done`, etc.) |
 | **Hooks** | 15 | Automated validation on commits, pushes, asset changes, design-doc reads, writes and registries, session lifecycle, agent audit trail, and gap detection |
 | **Rules** | 14 | Path-scoped coding standards enforced when editing gameplay, engine, AI, UI, network code, scene and asset files, and more |
@@ -364,7 +385,7 @@ a billing plan — most of the studio runs on whatever model you are already usi
 
 ### Engine Specialists
 
-The template includes agent sets for the three major engines. Use the set that
+The template includes agent sets for the three major engines, and this fork adds one for Roblox. Use the set that
 matches your project (a web project uses the general programmers):
 
 | Engine | Lead Agent | Sub-Specialists |
@@ -372,6 +393,7 @@ matches your project (a web project uses the general programmers):
 | **Godot 4** | `godot-specialist` | GDScript, Shaders, GDExtension |
 | **Unity** | `unity-specialist` | DOTS/ECS, Shaders/VFX, Addressables, UI Toolkit |
 | **Unreal Engine 5** | `unreal-specialist` | GAS, Blueprints, Replication, UMG/CommonUI |
+| **Roblox** | `roblox-specialist` | none: one specialist covers Luau, remotes, DataStores and Studio MCP |
 
 ### Slash Commands
 
@@ -489,7 +511,7 @@ This is a **template**, not a locked framework. Everything is meant to be custom
 - **Modify skills** — adjust workflows to match your team's process
 - **Add rules** — create new path-scoped rules for your project's directory structure
 - **Tune hooks** — adjust validation strictness, add new checks
-- **Pick your engine** — web, Godot, Unity or Unreal (see [Engines](#engines)); use the matching agent set, or none
+- **Pick your engine** — web, Godot, Unity, Unreal or Roblox (see [Engines](#engines)); use the matching agent set, or none
 - **Tune process weight** — `modes.rigor` and its underlying knobs in `project.yaml` (see [Configuration](#configuration)). Override per-run with `--review solo` on any skill that runs a review gate.
 
 ## Platform Support
@@ -498,29 +520,53 @@ Primary development on **Windows 10** with Git Bash. The hooks and scripts are a
 
 ## Community
 
-- **Discussions** — [GitHub Discussions](https://github.com/Donchitos/Claude-Code-Game-Studios/discussions) for questions, ideas, and showcasing what you've built
-- **Issues** — [Bug reports and feature requests](https://github.com/Donchitos/Claude-Code-Game-Studios/issues)
+- 💬 **Discussions**: [GitHub Discussions](https://github.com/th3r-dev/th3-game-studio/discussions) for questions, ideas and what you've built
+- 🐞 **Issues**: [bug reports and feature requests](https://github.com/th3r-dev/th3-game-studio/issues)
+- ⬆️ **Upstream**: changes that are not Roblox-specific belong in [Claude Code Game Studios](https://github.com/Donchitos/Claude-Code-Game-Studios/issues)
+
+---
+
+## Roblox route
+
+This fork adds Roblox Studio as an engine. The flow is the same as every other
+engine (brief → engine → build one feature a sitting → cut and ship); the engine
+step is `/setup-engine roblox`.
+
+1. 👤 **Install [Roblox Studio](https://create.roblox.com/)** and sign in. *You, once.*
+2. 👤 **Install [Rokit](https://github.com/rojo-rbx/rokit)**, then `rokit install` in the project. *You, or the agent on a yes.*
+3. 🤖 **`/setup-engine roblox`** writes a Rojo project (`src/server`, `src/client`, `src/shared`, `tests/`) and pins Rojo, Selene, StyLua and Lune. *The agent, after showing the file list.*
+4. 👤 **`rojo serve`**, then Studio → Plugins → Rojo → Connect. *You.*
+5. 👤 **Studio → Assistant → `…` → Manage MCP Servers → Enable Studio as MCP server.** *You, once.*
+6. 🤖 **Playtests**: the agent starts play, walks the character, reads the output and takes a screenshot. *The agent, through Studio MCP.*
+
+Works with any agent that speaks MCP: Studio's Quick connect wires Claude Code,
+Codex CLI, Gemini CLI, Cursor and VS Code. Details:
+[`setup-engine/references/roblox.md`](.claude/skills/setup-engine/references/roblox.md),
+[`docs/engine-reference/roblox/`](docs/engine-reference/roblox/).
 
 ---
 
 ## Supporting This Project
 
-Claude Code Game Studios is free and open source. If it saves you time or helps you ship your game, consider supporting continued development:
+th3 Game Studio is free and open source. If it saves you time, sponsoring keeps
+the Roblox route and the fork's upkeep going:
 
 <p>
-  <a href="https://www.buymeacoffee.com/donchitos3"><img src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black" alt="Buy Me a Coffee"></a>
-  &nbsp;
-  <a href="https://github.com/sponsors/Donchitos"><img src="https://img.shields.io/badge/GitHub%20Sponsors-ea4aaa?style=for-the-badge&logo=githubsponsors&logoColor=white" alt="GitHub Sponsors"></a>
+  <a href="https://github.com/sponsors/th3r-dev"><img src="https://img.shields.io/badge/Sponsor%20th3r--dev-ea4aaa?style=for-the-badge&logo=githubsponsors&logoColor=white" alt="Sponsor th3r-dev on GitHub" height="32"></a>
+  <a href="https://github.com/th3r-dev/th3-game-studio"><img src="https://img.shields.io/badge/Star%20on%20GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="Star on GitHub" height="32"></a>
 </p>
-
-- **[Buy Me a Coffee](https://www.buymeacoffee.com/donchitos3)** — one-time support
-- **[GitHub Sponsors](https://github.com/sponsors/Donchitos)** — recurring support through GitHub
-
-Sponsorships help fund time spent maintaining skills, adding new agents, keeping up with Claude Code and engine API changes, and responding to community issues.
 
 ---
 
-*Built for Claude Code. Maintained and extended — contributions welcome via [GitHub Discussions](https://github.com/Donchitos/Claude-Code-Game-Studios/discussions).*
+## Credits
+
+Built on [Claude Code Game Studios](https://github.com/Donchitos/Claude-Code-Game-Studios)
+by Donchitos (MIT): the studio, its agents, skills and hooks are theirs. This fork
+adds the Roblox route. To support the original author:
+[GitHub Sponsors](https://github.com/sponsors/Donchitos) ·
+[Buy Me a Coffee](https://www.buymeacoffee.com/donchitos3).
+
+---
 
 ## License
 

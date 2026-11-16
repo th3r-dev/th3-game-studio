@@ -13,7 +13,7 @@
 # /smoke-check, which also decides what an unmatched exit code means.
 #
 # Usage: bash .claude/scripts/test-run.sh <engine> [options]
-#   <engine>            godot, unity, unreal or web (any case)
+#   <engine>            godot, unity, unreal, web or roblox (any case)
 #   --cmd COMMAND       the test command to run, instead of project.yaml's
 #                       commands.test or the engine's default
 #   --exe PATH          the editor executable (default: the one commands.test
@@ -70,7 +70,7 @@
 # (or npm's placeholder, "no test specified") runs nothing: web:no-test-script.
 #
 # Output: TSV, in this order (a row that cannot apply is left out).
-#   engine      <Godot|Unity|Unreal|Web>
+#   engine      <Godot|Unity|Unreal|Web|Roblox>
 #   exe         <path|->  <commands.test|engine.path|path|--exe|->
 #   command     <--cmd|commands.test|default>  <the command>
 #   import      <command> | - <skipped: why>                godot, before the tests
@@ -110,7 +110,8 @@
 # unreal:mac-unsourced, unreal:build-failed, unreal:result-fail,
 # unreal:no-tests-matched, unreal:pass, unreal:other-nonzero, web:0, web:nonzero,
 # web:pass, web:failed, web:zero-tests, web:build-failed, web:no-browser,
-# web:no-test-script.
+# web:no-test-script, roblox:no-runner, roblox:pass, roblox:failed, roblox:zero-tests,
+# roblox:0, roblox:nonzero.
 #
 # Exit codes: 0 the helper finished (whatever the tests did: read the rows);
 # 1 cannot read the root or write the log; 2 usage error; 3 unknown engine.
@@ -152,7 +153,8 @@ case "$(printf '%s' "$ENGINE_ARG" | tr 'A-Z' 'a-z')" in
   unity) ENGINE=unity; ENAME=Unity ;;
   unreal) ENGINE=unreal; ENAME=Unreal ;;
   web) ENGINE=web; ENAME=Web ;;
-  *) echo "test-run: '$ENGINE_ARG' is not an engine this knows (godot, unity, unreal, web)" >&2; exit 3 ;;
+  roblox) ENGINE=roblox; ENAME=Roblox ;;
+  *) echo "test-run: '$ENGINE_ARG' is not an engine this knows (godot, unity, unreal, web, roblox)" >&2; exit 3 ;;
 esac
 case "$PLATFORM" in editmode|playmode) ;; *) usage "--platform is editmode or playmode" ;; esac
 case "$OS_ARG" in ""|windows|linux|macos) ;; *) usage "--os is windows, linux or macos" ;; esac
@@ -201,6 +203,7 @@ else
   elif [ "$ENGINE" = godot ] && exe_ok godot; then EXE="godot"; EXE_SRC="path"
   elif [ "$ENGINE" = unity ] && exe_ok Unity; then EXE="Unity"; EXE_SRC="path"
   elif [ "$ENGINE" = web ] && exe_ok npm; then EXE="npm"; EXE_SRC="path"
+  elif [ "$ENGINE" = roblox ] && exe_ok lune; then EXE="lune"; EXE_SRC="path"
   fi
 fi
 printf 'exe\t%s\t%s\n' "${EXE:--}" "$EXE_SRC"
@@ -269,6 +272,14 @@ case "$ENGINE" in
       CMD=$(awk -F'\t' -v engine=web -v col=test -f "$HERE/engine-row.awk" "$HERE/../engines/engines.tsv")
     fi
     [ -n "$CMD" ] && CMD="$CMD 2>&1"
+    ;;
+  roblox)
+    # Lune runs the pure-Luau tests headless (tests/run.luau, the scaffold's
+    # runner); anything that needs Studio is a playtest, not this run.
+    if [ -f "$HERE/engine-row.awk" ] && [ -f "$HERE/../engines/engines.tsv" ]; then
+      CMD=$(awk -F'\t' -v engine=roblox -v col=test -f "$HERE/engine-row.awk" "$HERE/../engines/engines.tsv")
+    fi
+    [ -n "$CMD" ] && CMD="\"${EXE:-lune}\"${CMD#lune} 2>&1"
     ;;
   godot)
     CMD="\"${EXE:-godot}\" --headless -s -d --remote-debug tcp://127.0.0.1:0 res://addons/gdUnit4/bin/GdUnitCmdTool.gd -a res://tests --ignoreHeadlessMode 2>&1"
@@ -418,6 +429,15 @@ case "$ENGINE" in
   web)
     [ -n "$CMD" ] || ran_no runner-unavailable "no test command (--cmd, commands.test or the engine table)" "no test command was found, so the tests could not be run here"
     [ -z "$NO_TEST_SCRIPT" ] || ran_no web:no-test-script "$NO_TEST_SCRIPT" "the project has no test script, so no test ran" ;;
+  roblox)
+    [ -n "$CMD" ] || ran_no runner-unavailable "no test command (--cmd, commands.test or the engine table)" "no test command was found, so the tests could not be run here"
+    if [ "$CMD_SRC" = default ]; then
+      if [ -f tests/run.luau ]; then printf 'precheck\ttests/run.luau\tpresent\n'
+      else
+        printf 'precheck\ttests/run.luau\tabsent\n'
+        ran_no roblox:no-runner "tests/run.luau is missing (the scaffold's Lune runner)" "no Lune test runner, so no test ran"
+      fi
+    fi ;;
 esac
 if [ -z "$EXE" ] && [ "$CMD_SRC" = default ]; then
   ran_no runner-unavailable "no editor executable (commands.test, engine.path, PATH)" "the engine executable was not found, so the tests could not be run here"
@@ -663,6 +683,25 @@ case "$ENGINE" in
       else set_rule web:nonzero "the test command failed (exit $CODE) with no failed test or zero-tests line read ($_rn)"; fi
     fi ;;
 esac
+if [ "$ENGINE" = roblox ]; then
+  # tests/run.luau's own lines: `FAIL <name>: <error>`, `Tests: <n> passed, <n> failed`,
+  # `No tests found`. Another command is read by its exit code only.
+  marker=$(first_line '^No tests found')
+  summary=$(first_line '^Tests: [0-9]+ passed, [0-9]+ failed')
+  if [ -n "$marker" ]; then printf 'zero_tests\tyes\t%s\n' "$marker"
+  elif [ -n "$summary" ]; then printf 'zero_tests\tno\t-\n'
+  else printf 'zero_tests\tunknown\tno tests/run.luau summary line\n'; fi
+  np=$(printf '%s' "$summary" | sed -n -E 's/^Tests: ([0-9]+) passed.*/\1/p')
+  nf=$(printf '%s' "$summary" | sed -n -E 's/.* ([0-9]+) failed.*/\1/p')
+  [ -n "$summary" ] && printf 'tests\ttotal=%s passed=%s failed=%s\n' "$((np + nf))" "$np" "$nf"
+  list_failed '^FAIL ' "$LOG"
+  if [ "$CODE" = 126 ] || [ "$CODE" = 127 ]; then set_rule runner-unavailable "lune did not start (command not found or not executable)"
+  elif [ -n "${nf:-}" ] && [ "$nf" -gt 0 ]; then set_rule roblox:failed "a test failed"
+  elif [ -n "$marker" ]; then set_rule roblox:zero-tests "no tests found, which is not a pass"
+  elif [ "$CODE" = 0 ] && [ -n "$summary" ] && [ "$np" -gt 0 ]; then set_rule roblox:pass "exit 0; tests passed: $np"
+  elif [ "$CODE" = 0 ]; then set_rule roblox:0 "exit 0 with no summary line: read by exit code only, so a run of zero tests looks the same"
+  else set_rule roblox:nonzero "the test command failed (exit $CODE) with no failed test read"; fi
+fi
 if [ "$TIMED" = yes ]; then set_rule timeout "the run did not complete: timed out after ${TIMEOUT}s, so nothing was verified"; fi
 printf 'rule\t%s\t%s\n' "$RULE_ID" "$RULE_TXT"
 [ -n "$PRE_LOG" ] && printf 'pre_log\t%s\n' "$PRE_LOG"
