@@ -74,10 +74,11 @@ The pins are `.claude/engines/roblox/scaffold/rokit.toml`'s, which
 ```
 
 **technical-preferences.md** (Section 5): Engine Roblox, language Luau, and the
-Roblox style's naming: modules, classes and services PascalCase (`Rules`,
-`CoinService`); functions and variables camelCase (`newState`); constants
+Roblox style's naming: modules, classes and services PascalCase (`Wallet`,
+`PickupFactory`); functions and variables camelCase (`newState`); constants
 SCREAMING_SNAKE (`MAX_COINS`); files named as the instance they become
-(`Rules.luau`, `init.server.luau`). Specialist rows: Primary `roblox-specialist`.
+(`Wallet.luau`, `init.server.luau`). The house style, the class + factory
+pattern and the review checklist: `docs/engine-reference/roblox/luau-style.md`. Specialist rows: Primary `roblox-specialist`.
 
 **`project.yaml`** (Section 5.5), the four blocks:
 
@@ -140,9 +141,12 @@ questions go to the Roblox docs (`create.roblox.com/docs`, each page also at
    Declined or offline: the files are there, and the build, lint and tests wait
    for it.
 
-What the scaffold is: one coin above the spawn that pays a coin when touched,
-counted by the **server** in `leaderstats`, with a client HUD that only shows it.
-The rules (`src/shared/Rules.luau`) hold no Roblox instance, so Lune tests them.
+What the scaffold is: a coin and a gem that pay whoever touches them, counted by
+the **server** in `leaderstats`, with a client HUD that only shows it. It follows
+`docs/engine-reference/roblox/luau-style.md`: typed classes (`Wallet`, `Pickup`), one
+factory (`PickupFactory`) holding every kind as frozen data, and a server class
+(`PickupSpawner`) that owns its Part and connections. The shared classes hold no
+Roblox instance, so Lune tests them.
 
 ## R6. Build, test and look
 

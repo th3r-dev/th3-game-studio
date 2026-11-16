@@ -32,6 +32,7 @@ MCP `http_get` tool, never memory.
 - **The server owns state.** A client asks; the server checks and writes. Values a
   player can gain (currency, items, score) are never set from a client message.
   **[J]**
+- **House style:** `luau-style.md` (classes, factories, layout, performance).
 - **Rules without instances.** Game rules live in `src/shared/` modules that do
   not touch `game`, so `lune run tests/run` tests them headless. **[J]**
 - **Files are the source.** With Rojo connected, edit `src/`, not Studio's copy:
