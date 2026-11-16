@@ -1,7 +1,7 @@
 # Engine table
 
 `engines.tsv` holds one row per engine `engine.name` can name: Godot, Unity,
-Unreal and Web. The hooks, helpers and skills read it instead of keeping their
+Unreal, Web and Roblox. The hooks, helpers and skills read it instead of keeping their
 own copy of each engine's folders.
 
 | Column | What it is | Read by |
@@ -28,3 +28,21 @@ The files a new web project starts from. `scaffold/` holds every file
 `.claude/scripts/web-scaffold.sh` (which never overwrites a file); its
 `playwright.config.ts` is also the one `/test-setup` writes
 (`test-scaffold.sh web`). `web/README.md` says what each file is for.
+
+## `roblox/`
+
+The files a new Roblox project starts from. `scaffold/` holds every file
+`/setup-engine roblox` copies into the project root, through
+`.claude/scripts/roblox-scaffold.sh` (which never overwrites a file).
+
+| File | What it is for |
+|---|---|
+| `default.project.json` | Rojo's map: `src/shared` → ReplicatedStorage.Shared, `src/server` → ServerScriptService.Server, `src/client` → StarterPlayerScripts.Client. `@TITLE@` becomes the game's name |
+| `rokit.toml` | The pinned toolchain: Rojo, Selene, StyLua, Lune (`docs/engine-reference/roblox/VERSION.md`) |
+| `src/shared/Rules.luau` | The rules, with no Roblox instance in them, so Lune tests them headless |
+| `src/server/init.server.luau` | The server: owns the score, spawns the coin, writes `leaderstats` |
+| `src/client/init.client.luau` | The client: a HUD that only shows the count |
+| `tests/run.luau` | The Lune test runner and the rules' tests; its output is what `test-run.sh roblox` reads |
+| `selene.toml`, `stylua.toml` | Lint with Roblox's globals; format |
+| `assets/provenance.yaml` | Where each asset came from: a file or a Roblox asset id |
+| `.gitignore` | Rojo's build output and lock files |

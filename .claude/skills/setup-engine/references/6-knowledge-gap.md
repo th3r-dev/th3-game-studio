@@ -28,6 +28,9 @@ Check whether the engine version is likely beyond the LLM's training data.
 > `HIGH RISK` regardless of the comparison — a cutoff the model does not have is
 > not a cutoff that was met.
 
+**Roblox** is HIGH RISK too (`references/roblox.md`, R4): the toolchain pins and
+Studio's MCP server are newer than the model's training.
+
 **Web** is HIGH RISK: every version the scaffold pins is newer than the model's
 training (`references/web.md`, W4).
 

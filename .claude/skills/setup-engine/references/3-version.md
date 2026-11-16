@@ -5,6 +5,9 @@
 
 ## 3. Look Up Current Version
 
+**Roblox:** no lookup: `references/roblox.md`, R2 (Studio is evergreen; the
+toolchain is pinned in `rokit.toml`).
+
 **Web:** no lookup and no editor probe: `references/web.md`, W2 (Node and the
 pinned versions).
 

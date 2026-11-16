@@ -3,11 +3,11 @@
 ## What Is This?
 
 This is a complete Claude Code agent architecture for game development. It
-organizes 49 specialized AI agents into a studio hierarchy that mirrors
+organizes 50 specialized AI agents into a studio hierarchy that mirrors
 real game development teams, with defined responsibilities, delegation
 rules, and coordination protocols. It includes engine-specialist agents
 for Godot, Unity, and Unreal — each with dedicated sub-specialists for
-major engine subsystems. All design agents and templates are grounded in
+major engine subsystems — and a Roblox specialist. All design agents and templates are grounded in
 established game design theory (MDA Framework, Self-Determination Theory,
 Flow State, Bartle Player Types). Use whichever engine set matches your project.
 
@@ -26,7 +26,7 @@ The main path starts with a game, not an engine:
    stories (`/create-stories`, then `/dev-story` and `/story-done`) only when you
    ask for them, or in studio mode; `/next-step` knows this route
 
-`/setup-engine` is for an engine other than web (Godot, Unity, Unreal), or for later; with
+`/setup-engine` is for an engine other than web (Godot, Unity, Unreal, Roblox), or for later; with
 an engine set, `/prototype` builds a throwaway prototype in it instead. `/prototype --spike`
 is the quick test of one mechanic. `/brainstorm` helps when you have no idea yet.
 
@@ -311,7 +311,7 @@ CLAUDE.md                          -- Master config (read this first, ~80 lines)
 project.yaml                       -- Machine-readable project config (engine, modes, stage) — source of truth
 .claude/
   settings.json                    -- Claude Code hooks and project settings
-  agents/                          -- 49 agent definitions (YAML frontmatter)
+  agents/                          -- 50 agent definitions (YAML frontmatter)
   skills/                          -- 75 slash command definitions (YAML frontmatter)
   hooks/                           -- 15 event hooks (.sh, wired by settings.json) + yaml-helper.sh, update-check.sh
   rules/                           -- 14 path-specific rule files

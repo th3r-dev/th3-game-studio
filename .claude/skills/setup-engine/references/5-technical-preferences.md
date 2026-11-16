@@ -17,7 +17,8 @@
 After updating CLAUDE.md, create or update `.claude/docs/technical-preferences.md` with
 engine-appropriate defaults. Read the existing template first, then fill in:
 
-**Web:** the values are in `references/web.md` (W3).
+**Web:** the values are in `references/web.md` (W3). **Roblox:** in
+`references/roblox.md` (R3).
 
 ### Engine & Language Section
 - Fill from the engine choice made in step 4

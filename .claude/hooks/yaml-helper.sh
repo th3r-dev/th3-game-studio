@@ -2106,6 +2106,7 @@ EOF
       # No web specialist: engine work on Web goes to lead-programmer,
       # against docs/engine-reference/web/.
       web)     sp_primary="lead-programmer" ;;
+      roblox)  sp_primary="roblox-specialist" ;;
       *)       sp_primary="" ;;
     esac
     sp_psrc="engine.name"

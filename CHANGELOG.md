@@ -8,6 +8,19 @@ existing project on the older config files.
 
 ---
 
+## [Unreleased] — th3 Game Studio (fork)
+
+- **Roblox is an engine.** `/setup-engine roblox` writes a Rojo project
+  (`src/server`, `src/client`, `src/shared`, `tests/`), pins Rojo 7.7.1, Selene
+  0.32.0, StyLua 2.6.0 and Lune 0.11.1 in `rokit.toml`, and wires Studio's
+  built-in MCP server for playtests from Claude Code, Codex, Cursor or Gemini CLI.
+- `roblox-specialist` agent; `docs/engine-reference/roblox/`; `test-run.sh roblox`
+  reads the Lune runner; `project-coherence.sh` probes `rojo --version`.
+- README: fork header with Sponsor and GitHub links, icon buttons, an Engines list
+  that reflows on a phone.
+
+---
+
 ## [1.3.0] — 2026-11-09
 
 **"Make me a game" is the main road: `/prototype` asks a few questions, writes a

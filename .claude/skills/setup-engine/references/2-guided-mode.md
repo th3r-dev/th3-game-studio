@@ -23,7 +23,8 @@ never a change to an existing one.
   engine, web included. Changing it is the user's own call, typed as
   `/setup-engine <engine>`.
 - **No engine set, but its files are on disk:** `project.godot` is Godot,
-  `ProjectSettings/ProjectVersion.txt` is Unity, a `*.uproject` is Unreal, and a
+  `ProjectSettings/ProjectVersion.txt` is Unity, a `*.uproject` is Unreal, a
+  `default.project.json` (Rojo) is Roblox (`references/roblox.md` R1), and a
   `package.json` is Web (`references/web.md` W1 records it as it is). Say what
   you found and carry on with that engine; offer no other first.
 
@@ -48,7 +49,8 @@ with it (Section 1, Engine only). Otherwise no engine is named.
 ### No engine named: offer web first
 
 Say one line first: "Godot, Unity or Unreal fit better for a big 3D game, a
-console or phone-store release, or an engine you already know."
+console or phone-store release, or an engine you already know. Roblox fits a
+multiplayer game played inside Roblox: type Roblox for it."
 
 Ask with the question tool: "Which engine? Web is the quickest start: the game
 runs in any browser, and Node is the only install." Options, Web always first:
@@ -62,6 +64,9 @@ their words ("Your brief says console: Unity or Unreal fit that better").
 
 - **Web:** read `references/web.md` and follow it, as `/setup-engine web`.
 - **Godot, Unity or Unreal:** go on with it (Section 1, Engine only).
+- **Roblox** (typed, or named in the concept or brief): read `references/roblox.md`
+  and follow it, as `/setup-engine roblox`. The question keeps four options, the
+  tool's limit; Roblox is reached by name.
 - **Help me choose:** the questions below.
 
 ### Help me choose
@@ -80,6 +85,7 @@ any other factor:
   - Console → Unity or Unreal; Godot console support requires third-party publishers or significant extra work; Web cannot
   - PC only → all engines viable; other factors decide
   - Several → Unity is the most portable across PC, mobile and console
+  - Inside Roblox (typed: its players, its app on PC, phone, console and VR) → Roblox
 
 Then, in plain text:
 1. **What kind of game?** (2D, 3D, or both?)
@@ -117,8 +123,23 @@ Do not use a simple scoring matrix that eliminates engines. Instead, reason thro
 - Licensing reality: 5% royalty only applies AFTER USD 1M gross revenue per title. For a first game or any game that doesn't reach USD 1M, it costs nothing. This threshold is high enough that most indie developers will never pay it.
 - Best fit: AAA-quality 3D; large open-world games; photorealistic visuals; developers with C++ experience or willing to use Blueprint; games targeting high-end PC/console where visual fidelity is a core selling point
 
+**Roblox** (Roblox Studio, Luau; `docs/engine-reference/roblox/VERSION.md`)
+- Genuine strengths: multiplayer servers, hosting, accounts, chat and payments come
+  with the platform; one publish reaches PC, phone, console and VR; a very large,
+  young player base that finds games inside Roblox; free to make; Luau is small and
+  forgiving; Studio's built-in MCP server lets an AI client playtest the game
+- Real limitations: the game exists only on Roblox, under Roblox's rules and
+  revenue share (Robux, Developer Exchange); no export to Steam, consoles' own
+  stores or the web; Studio is the only runtime, so most checks need it open;
+  visuals and physics are Roblox's own; the audience skews young, which shapes
+  design, chat and safety rules
+- Best fit: multiplayer and social games (obby, tycoon, simulator, roleplay,
+  round-based), games for Roblox's audience, education games for classrooms
+  (Roblox Education)
+
 **Genre-specific guidance** (factor this into the recommendation):
 - Small 2D, puzzle, arcade or jam game, or one to share by link → Web
+- Multiplayer obby, tycoon, simulator or roleplay for Roblox's players → Roblox
 - 2D any style → Godot strongly preferred
 - 3D stylized / atmospheric / contained world → Godot viable, Unity solid alternative
 - 3D open world (large, seamless) → Unity or Unreal; Godot is not production-proven for this

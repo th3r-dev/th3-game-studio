@@ -46,6 +46,7 @@ Update the Technology Stack section, replacing the `[CHOOSE]` placeholders with 
 ```
 
 **For Web** — the four lines in `references/web.md` (W3).
+**For Roblox** — the four lines in `references/roblox.md` (R3).
 
 **For Unreal:**
 ```markdown
@@ -69,6 +70,7 @@ on its own right after the comment's closing `-->`:
 - Unity → `@docs/engine-reference/unity/VERSION.md`
 - Unreal → `@docs/engine-reference/unreal/VERSION.md`
 - Web → `@docs/engine-reference/web/VERSION.md`
+- Roblox → `@docs/engine-reference/roblox/VERSION.md`
 
 This keeps a Unity or Unreal project from loading the Godot reference in every
 session, and a project with no engine from loading any. It is idempotent —
