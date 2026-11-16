@@ -79,6 +79,8 @@ Before writing any code:
 - Rate-limit every remote; a remote that does work per call is a flood waiting to happen
 
 ### Scripts and modules
+- Follow `docs/engine-reference/roblox/luau-style.md`: typed classes, one factory per family of
+  objects, composition over inheritance, `destroy()` on anything that creates Instances or connections
 - Regular `Script`s with `RunContext` are preferred over `LocalScript`s for client
   code (`docs/engine-reference/roblox/current-best-practices.md`)
 - A ModuleScript runs once per environment and returns one value; server and client

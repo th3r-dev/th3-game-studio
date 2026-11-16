@@ -39,8 +39,10 @@ The files a new Roblox project starts from. `scaffold/` holds every file
 |---|---|
 | `default.project.json` | Rojo's map: `src/shared` → ReplicatedStorage.Shared, `src/server` → ServerScriptService.Server, `src/client` → StarterPlayerScripts.Client. `@TITLE@` becomes the game's name |
 | `rokit.toml` | The pinned toolchain: Rojo, Selene, StyLua, Lune (`docs/engine-reference/roblox/VERSION.md`) |
-| `src/shared/Rules.luau` | The rules, with no Roblox instance in them, so Lune tests them headless |
-| `src/server/init.server.luau` | The server: owns the score, spawns the coin, writes `leaderstats` |
+| `src/shared/Wallet.luau`, `Pickup.luau` | Typed classes with no Roblox instance in them, so Lune tests them headless |
+| `src/shared/PickupFactory.luau` | The one place pickups are made, from a frozen table of definitions |
+| `src/server/PickupSpawner.luau` | Puts a pickup in the world as a Part; owns its connections, `destroy()` removes them |
+| `src/server/init.server.luau` | The only server Script: a wallet per player, `leaderstats`, two spawners |
 | `src/client/init.client.luau` | The client: a HUD that only shows the count |
 | `tests/run.luau` | The Lune test runner and the rules' tests; its output is what `test-run.sh roblox` reads |
 | `selene.toml`, `stylua.toml` | Lint with Roblox's globals; format |
